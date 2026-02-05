@@ -1,0 +1,82 @@
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 500px;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.1) 0%, transparent 70%);
+}
+
+.avatarWrapper {
+  position: relative;
+  z-index: 10;
+  transition: filter 0.2s;
+}
+
+.avatar {
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+.shake {
+  animation: shake 0.1s infinite;
+  filter: blur(2px) hue-rotate(90deg);
+}
+
+@keyframes shake {
+  0% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(5px, 5px) rotate(5deg); }
+  50% { transform: translate(0, 0) rotate(0); }
+  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+
+.pedestal {
+  position: absolute;
+  bottom: 100px;
+  width: 300px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transform: rotateX(60deg);
+  border: 1px solid var(--color-primary-dim);
+  box-shadow: 0 0 30px var(--color-primary-dim);
+}
+
+.bgLabel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-text-muted);
+  padding: 4px 8px;
+  border-radius: var(--border-radius-sm);
+  opacity: 0.5;
+}
+
+.controls {
+  margin-top: var(--spacing-xxl);
+  display: flex;
+  gap: var(--spacing-md);
+  z-index: 20;
+}
+
+.actionBtn {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

@@ -1,0 +1,47 @@
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.particle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+/* Generate explosions in different directions */
+.p0 { animation: explode-0 0.6s ease-out forwards; }
+.p1 { animation: explode-1 0.6s ease-out forwards; }
+.p2 { animation: explode-2 0.6s ease-out forwards; }
+.p3 { animation: explode-3 0.6s ease-out forwards; }
+.p4 { animation: explode-4 0.6s ease-out forwards; }
+.p5 { animation: explode-5 0.6s ease-out forwards; }
+.p6 { animation: explode-6 0.6s ease-out forwards; }
+.p7 { animation: explode-7 0.6s ease-out forwards; }
+.p8 { animation: explode-8 0.6s ease-out forwards; }
+.p9 { animation: explode-9 0.6s ease-out forwards; }
+.p10 { animation: explode-10 0.6s ease-out forwards; }
+.p11 { animation: explode-11 0.6s ease-out forwards; }
+
+@keyframes explode-0 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(0,-50px) scale(0); opacity: 0; } }
+@keyframes explode-1 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(25px,-43px) scale(0); opacity: 0; } }
+@keyframes explode-2 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(43px,-25px) scale(0); opacity: 0; } }
+@keyframes explode-3 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(50px,0) scale(0); opacity: 0; } }
+@keyframes explode-4 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(43px,25px) scale(0); opacity: 0; } }
+@keyframes explode-5 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(25px,43px) scale(0); opacity: 0; } }
+@keyframes explode-6 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(0,50px) scale(0); opacity: 0; } }
+@keyframes explode-7 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(-25px,43px) scale(0); opacity: 0; } }
+@keyframes explode-8 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(-43px,25px) scale(0); opacity: 0; } }
+@keyframes explode-9 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(-50px,0) scale(0); opacity: 0; } }
+@keyframes explode-10 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(-43px,-25px) scale(0); opacity: 0; } }
+@keyframes explode-11 { 0% { transform: translate(0,0) scale(1); opacity: 1; } 100% { transform: translate(-25px,-43px) scale(0); opacity: 0; } }

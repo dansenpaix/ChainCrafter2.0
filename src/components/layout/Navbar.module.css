@@ -1,0 +1,68 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: rgba(5, 5, 16, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-primary-dim);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logoAndBrand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-primary);
+}
+
+.logoIcon {
+  filter: drop-shadow(0 0 5px var(--color-primary));
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--color-text);
+  text-shadow: 0 0 10px var(--color-primary-dim);
+}
+
+.navLinks {
+  display: flex;
+  gap: var(--spacing-xl);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.navLink:hover {
+  color: var(--color-primary);
+  text-shadow: 0 0 8px var(--color-primary);
+}
+
+.connectButton {
+  background: transparent;
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-neon-secondary);
+}
+
+.connectButton:hover {
+  background: var(--color-secondary);
+  color: #fff;
+  box-shadow: 0 0 20px var(--color-secondary);
+}
