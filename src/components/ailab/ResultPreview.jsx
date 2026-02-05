@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PixelAvatar from '../ui/PixelAvatar';
 import styles from './ResultPreview.module.css';
 import { ArrowRight, RefreshCw, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { downloadAvatar } from '../../utils/download';
 
 const ResultPreview = ({ onReset }) => {
+  const avatarRef = useRef(null);
+
+  const handleDownload = () => {
+    const svg = document.querySelector(`.${styles.avatar}`);
+    downloadAvatar(svg, 'my-pixel-avatar.png');
+  };
+
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>GENERATION COMPLETE</h2>
@@ -34,7 +42,7 @@ const ResultPreview = ({ onReset }) => {
               <RefreshCw size={18} />
               TRY AGAIN
             </button>
-            <button className={styles.secondaryBtn}>
+            <button className={styles.secondaryBtn} onClick={handleDownload}>
               <Download size={18} />
               DOWNLOAD
             </button>

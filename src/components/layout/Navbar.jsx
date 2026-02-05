@@ -21,10 +21,6 @@ const Navbar = () => {
           <span>The Forge</span>
         </Link>
       </div>
-
-      <button className={styles.connectButton}>
-        Connect Wallet
-      </button>
     </nav>
   );
 };
