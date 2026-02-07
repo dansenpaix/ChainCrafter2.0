@@ -86,3 +86,12 @@
   height: 30px;
   box-shadow: 0 0 10px var(--color-primary);
 }
+@media (max-width: 468px) {
+  .dropZone {
+    border-color: var(--color-text-muted);
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .title{
+    font-size: 20px;
+  }
+}
