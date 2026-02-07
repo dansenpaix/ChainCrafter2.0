@@ -23,9 +23,12 @@
 }
 
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-xl);
+display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
 }
 
 .card {
@@ -67,4 +70,12 @@
 .cardDesc {
   color: var(--color-text-muted);
   line-height: 1.6;
+}
+@media (max-width:500px){
+  .title{
+    font-size: 27px;
+  }
+  .subtitle{
+    font-size: 14px;
+  }
 }

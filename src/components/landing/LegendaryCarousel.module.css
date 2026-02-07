@@ -82,14 +82,13 @@
 .prev { margin-right: var(--spacing-md); }
 .next { margin-left: var(--spacing-md); }
 
-/* Mobile Optimization */
 @media (max-width: 768px) {
   .navBtn {
-    display: none; /* Hide buttons on mobile, rely on swipe */
+    display: none; 
   }
   
   .card {
-    flex: 0 0 80%; /* Show one card mostly */
+    flex: 0 0 80%; 
   }
   
   .wrapper {
@@ -97,7 +96,7 @@
   }
   
   .carouselContainer {
-    padding-left: 10%; /* Center the first card */
+    padding-left: 10%; 
     padding-right: 10%;
   }
 }
@@ -153,4 +152,9 @@
 .name {
   color: var(--color-text);
   font-weight: bold;
+}
+@media (max-width:500px){
+  .title{
+    font-size: 25px;
+  }
 }

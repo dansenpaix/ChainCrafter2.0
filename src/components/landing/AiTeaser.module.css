@@ -149,3 +149,20 @@
   color: #fff;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
+@media (max-width:700px){
+  .title{
+    font-size: 27px;
+  }
+  .description{
+    font-size: 14px;
+
+  }
+  .container{
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+  .comparison{
+    width: 250px;
+    height: 250px;
+  }
+}

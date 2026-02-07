@@ -7,20 +7,28 @@
   padding: 0;
 }
 
+html,
 body {
-  font-family: 'Courier New', Courier, monospace; /* Placeholder for pixel font */
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  line-height: 1.5;
-  overflow-x: hidden;
-}
-html, body {
   width: 100%;
-  overflow-x: hidden; /* This prevents the horizontal scroll bug */
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
 }
 
+body {
+  font-family: 'Courier New', Courier, monospace;
+  /* Placeholder for pixel font */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+
+  /* OFFSET FOR FIXED NAVBAR:
+     Since the navbar is 'fixed', it floats on top. 
+     This padding prevents your Hero text from being covered.
+  */
+}
+
+/* 3. Typography & Links */
 a {
   color: var(--color-primary);
   text-decoration: none;
@@ -33,7 +41,6 @@ button {
   outline: none;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -49,4 +56,10 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
 }
