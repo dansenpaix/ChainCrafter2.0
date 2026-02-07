@@ -1,50 +1,97 @@
-import React, { useRef } from 'react';
-import PixelAvatar from '../ui/PixelAvatar';
-import styles from './ResultPreview.module.css';
+import React, { useRef, useEffect, useState } from 'react';
 import { ArrowRight, RefreshCw, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { downloadAvatar } from '../../utils/download';
+import styles from './ResultPreview.module.css';
 
-const ResultPreview = ({ onReset }) => {
-  const avatarRef = useRef(null);
+const ResultPreview = ({ uploadedFile, onReset }) => {
+  const canvasRef = useRef(null);
+  const [isProcessing, setIsProcessing] = useState(true);
+
+  useEffect(() => {
+    // Only proceed if we have a valid file
+    if (!uploadedFile || !(uploadedFile instanceof File)) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(uploadedFile);
+
+    img.onload = () => {
+      const size = 600;
+      canvas.width = size;
+      canvas.height = size;
+
+      // Pixelation size (15-20 is ideal for your 'Cyber-Ronin' look)
+      const pixelSize = 15;
+      const w = size / pixelSize;
+      const h = size / pixelSize;
+
+      // Offscreen processing
+      const offscreen = document.createElement('canvas');
+      offscreen.width = w;
+      offscreen.height = h;
+      const offCtx = offscreen.getContext('2d');
+
+      // Draw small, then scale back up without smoothing
+      offCtx.drawImage(img, 0, 0, w, h);
+
+      ctx.imageSmoothingEnabled = false;
+      ctx.webkitImageSmoothingEnabled = false;
+      ctx.mozImageSmoothingEnabled = false;
+
+      ctx.clearRect(0, 0, size, size);
+      ctx.drawImage(offscreen, 0, 0, w, h, 0, 0, size, size);
+
+      setIsProcessing(false);
+    };
+
+    img.src = objectUrl;
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [uploadedFile]);
 
   const handleDownload = () => {
-    const svg = document.querySelector(`.${styles.avatar}`);
-    downloadAvatar(svg, 'my-pixel-avatar.png');
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const link = document.createElement('a');
+    link.download = `chaincrafter-avatar-${Date.now()}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
   };
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>GENERATION COMPLETE</h2>
-      
+      <h2 className={styles.title}>
+        {isProcessing ? "PROCESSING UPLINK..." : "NEURAL UPLINK / AI LAB"}
+      </h2>
+
       <div className={styles.previewArea}>
         <div className={styles.avatarCard}>
-          <PixelAvatar seed={123} size={256} className={styles.avatar} />
-          <div className={styles.stats}>
-             <div className={styles.stat}>
-               <span>Class:</span>
-               <strong>Cyber-Ronin</strong>
-             </div>
-             <div className={styles.stat}>
-               <span>Rarity:</span>
-               <strong style={{color: 'purple'}}>Epic</strong>
-             </div>
+          <div className={styles.canvasContainer}>
+            <canvas ref={canvasRef} className={styles.avatarCanvas} />
+            {isProcessing && <div className={styles.overlayText}>UPLINKING...</div>}
+          </div>
+
+          <div className={styles.stat}>
+            <span>Class:</span>
+            <strong>Cyber-Ronin</strong>
+          </div>
+          <div className={styles.stat}>
+            <span>Status:</span>
+            <strong style={{ color: 'var(--color-secondary)' }}>Verified</strong>
           </div>
         </div>
-        
+
         <div className={styles.controls}>
-          <p className={styles.prompt}>
-            <strong>AI Analysis:</strong> Detected human male subject, short dark hair, glasses. Applied "Neon Noir" aesthetic filter.
-          </p>
-          
+          <div className={styles.prompt}>
+            <strong>AI Analysis:</strong> Subject re-sampled. Aesthetic: Neon Noir. Rarity: Epic.
+          </div>
+
           <div className={styles.actions}>
             <button className={styles.secondaryBtn} onClick={onReset}>
-              <RefreshCw size={18} />
-              TRY AGAIN
+              <RefreshCw size={18} /> TRY AGAIN
             </button>
             <button className={styles.secondaryBtn} onClick={handleDownload}>
-              <Download size={18} />
-              DOWNLOAD
+              <Download size={18} /> DOWNLOAD
             </button>
             <Link to="/forge" className={styles.primaryBtn}>
               OPEN IN FORGE <ArrowRight size={18} />

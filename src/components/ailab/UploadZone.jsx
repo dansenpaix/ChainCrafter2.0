@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from 'react';
-import { Upload, FileImage, AlertCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Upload, AlertCircle } from 'lucide-react';
 import styles from './UploadZone.module.css';
 
 const UploadZone = ({ onFileSelected }) => {
@@ -7,24 +7,28 @@ const UploadZone = ({ onFileSelected }) => {
 
   const handleDragOver = (e) => {
     e.preventDefault();
+    e.stopPropagation(); // Prevents browser redirect
     setIsDragOver(true);
   };
 
   const handleDragLeave = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragOver(false);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragOver(false);
     
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       const file = e.dataTransfer.files[0];
+      // Validation check
       if (file.type.startsWith('image/')) {
         onFileSelected(file);
       } else {
-        alert('Please upload an image file.');
+        alert('Please upload an image file (JPG, PNG).');
       }
     }
   };
@@ -32,6 +36,8 @@ const UploadZone = ({ onFileSelected }) => {
   const handleChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       onFileSelected(e.target.files[0]);
+      // Reset the input value so the same file can be uploaded twice if needed
+      e.target.value = null; 
     }
   };
 
@@ -47,7 +53,7 @@ const UploadZone = ({ onFileSelected }) => {
         id="fileInput" 
         className={styles.fileInput} 
         onChange={handleChange} 
-        accept="image/*" 
+        accept="image/png, image/jpeg, image/jpg" 
       />
       <label htmlFor="fileInput" className={styles.content}>
         <div className={styles.iconWrapper}>

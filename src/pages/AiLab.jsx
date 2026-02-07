@@ -10,7 +10,7 @@ const AiLab = () => {
   const [imageSrc, setImageSrc] = useState(null);
 
   const handleFileSelected = (file) => {
-    setImageFile(file);
+    setImageFile(file); // Store the raw File object for the pixelator
     const reader = new FileReader();
     reader.onload = (e) => {
       setImageSrc(e.target.result);
@@ -23,7 +23,7 @@ const AiLab = () => {
     if (step === 'scanning') {
       const timer = setTimeout(() => {
         setStep('result');
-      }, 3000); // 3 seconds scan simulation
+      }, 3000); 
       return () => clearTimeout(timer);
     }
   }, [step]);
@@ -44,7 +44,10 @@ const AiLab = () => {
       <div className={styles.content}>
         {step === 'upload' && <UploadZone onFileSelected={handleFileSelected} />}
         {step === 'scanning' && <ScanningEffect imageSrc={imageSrc} />}
-        {step === 'result' && <ResultPreview onReset={handleReset} />}
+        {/* FIX: Passing the actual file object here */}
+        {step === 'result' && (
+          <ResultPreview uploadedFile={imageFile} onReset={handleReset} />
+        )}
       </div>
     </div>
   );
