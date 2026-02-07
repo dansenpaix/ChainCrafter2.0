@@ -14,6 +14,12 @@ body {
   line-height: 1.5;
   overflow-x: hidden;
 }
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* This prevents the horizontal scroll bug */
+  margin: 0;
+  padding: 0;
+}
 
 a {
   color: var(--color-primary);
