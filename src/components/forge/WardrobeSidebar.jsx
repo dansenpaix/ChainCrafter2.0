@@ -24,38 +24,52 @@ const WardrobeSidebar = ({ currentTraits, onTraitChange, onRandomize }) => {
 
   const traitKey = tabToKey[activeTab];
 
-  const handleDownload = () => {
-    // Select the SVG from the character stage
-    const svg = document.querySelector('svg');
-    if (!svg) return;
+const handleDownload = () => {
+  // Target the specific avatar SVG
+  const svg = document.querySelector(`.${styles.sidebar}`).parentElement.querySelector('svg');
+  if (!svg) return;
 
-    const svgData = new XMLSerializer().serializeToString(svg);
-    const canvas = document.createElement("canvas");
-    const svgSize = svg.viewBox.baseVal;
+  // Create a clone to avoid messing with the live UI
+  const clonedSvg = svg.cloneNode(true);
+  const svgData = new XMLSerializer().serializeToString(clonedSvg);
+  
+  const canvas = document.createElement("canvas");
+  // Set high resolution for the final output
+  const exportSize = 1024;
+  canvas.width = exportSize;
+  canvas.height = exportSize;
+  const ctx = canvas.getContext("2d");
 
-    // High res output
-    canvas.width = 1000;
-    canvas.height = 1000;
-    const ctx = canvas.getContext("2d");
+  const img = new Image();
+  // Using a Blob for more reliable cross-browser rendering
+  const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(svgBlob);
 
-    const img = new Image();
-    img.onload = () => {
-      // Draw background (Matching your site theme)
-      ctx.fillStyle = "#050510";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+  img.onload = () => {
+    // 1. Draw the actual background used in the Stage
+    ctx.fillStyle = "#050510"; // Base theme color
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // 2. Optional: If you want to capture the specific BACKGROUNDS[bgIndex]
+    // You would need to pass the current background color as a prop to this component.
 
-      // Draw Avatar
-      ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(img, 0, 0, 1000, 1000);
+    // 3. Draw Avatar with pixel-perfect scaling
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, 0, 0, exportSize, exportSize);
 
-      const pngFile = canvas.toDataURL("image/png");
-      const downloadLink = document.createElement("a");
-      downloadLink.download = `ChainCrafter_${currentTraits.seed || 'Avatar'}.png`;
-      downloadLink.href = pngFile;
-      downloadLink.click();
-    };
-    img.src = "data:image/svg+xml;base64," + btoa(svgData);
+    // 4. Execute download
+    const pngFile = canvas.toDataURL("image/png");
+    const downloadLink = document.createElement("a");
+    downloadLink.download = `ChainCrafter_${Date.now()}.png`;
+    downloadLink.href = pngFile;
+    downloadLink.click();
+    
+    // Cleanup memory
+    URL.revokeObjectURL(url);
   };
+  
+  img.src = url;
+};
 
   return (
     <aside className={styles.sidebar}>

@@ -34,16 +34,13 @@ const PixelAvatar = ({ seed = 0, traits = null, size = 64, className = '' }) => 
     const p = (x, y, color, type = 'base') => {
       rects.push(
         <rect
-          // FIX: Added rects.length to the key to ensure it is always unique
           key={`${x}-${y}-${type}-${rects.length}`}
           x={x} y={y}
           width="1" height="1"
-          fill={color}
-          className={type === 'hair' ? styles.hairSway : type === 'eyes' ? styles.eyeGlow : ''}
+          fill={color} // This MUST be the hex code string (e.g., "#FF00FF")
         />
       );
     };
-
     // --- Base Body (Shoulders/Neck) ---
     for (let y = 12; y < 16; y++) {
       for (let x = 4; x < 12; x++) {
