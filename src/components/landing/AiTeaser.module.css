@@ -2,135 +2,119 @@
   padding: var(--spacing-xxl) var(--spacing-xl);
   display: flex;
   justify-content: center;
+  overflow: hidden;
 }
 
 .container {
   display: flex;
   align-items: center;
   gap: var(--spacing-xxl);
-  max-width: var(--container-width);
+  max-width: 1200px;
   width: 100%;
-  flex-direction: row;
-}
-
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  }
 }
 
 .text {
   flex: 1;
+  text-align: left;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
   color: var(--color-secondary);
   text-shadow: var(--shadow-neon-secondary);
   margin-bottom: var(--spacing-md);
+  line-height: 1.1;
 }
 
 .description {
   color: var(--color-text-muted);
   margin-bottom: var(--spacing-lg);
-  font-size: 1.1rem;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 500px;
 }
 
 .cta {
   background: transparent;
   border: 1px solid var(--color-secondary);
   color: var(--color-secondary);
-  padding: 12px 24px;
+  padding: 14px 28px;
   font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
 }
 
 .cta:hover {
   background: var(--color-secondary);
   color: #fff;
-  box-shadow: var(--shadow-neon-secondary);
+  box-shadow: 0 0 20px var(--color-secondary);
+  transform: translateY(-2px);
+}
+
+.comparisonWrapper {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .comparison {
-  flex: 1;
   position: relative;
-  width: 300px;
-  height: 300px;
-  border: 2px solid var(--color-text-muted);
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--color-primary-dim);
   border-radius: var(--border-radius-md);
   overflow: hidden;
   cursor: ew-resize;
   user-select: none;
+  background: #050510;
 }
 
-.imageLayer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #333;
-}
-
-.realPhotoPlaceholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at 30% 30%, #555, #222);
-  color: #fff;
-  font-weight: bold;
-}
-
+.imageLayer,
 .pixelLayer {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  background: #000;
 }
 
+.realPhotoPlaceholder,
 .pixelContent {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  background: #111;
+}
+
+.realPhotoPlaceholder {
+  background: radial-gradient(circle at center, #333, #111);
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+  letter-spacing: 4px;
 }
 
 .label {
   position: absolute;
-  bottom: 10px;
-  right: 10px;
+  bottom: 15px;
+  right: 15px;
   color: var(--color-primary);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: bold;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+  border-radius: 4px;
 }
 
 .sliderHandle {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 4px; /* Trigger area */
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: 10;
-}
-
-.sliderLine {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
   width: 2px;
   background: #fff;
   transform: translateX(-50%);
-  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  z-index: 10;
+  box-shadow: 0 0 15px var(--color-secondary);
 }
 
 .sliderCircle {
@@ -138,31 +122,61 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  background: var(--color-bg);
+  width: 36px;
+  height: 36px;
+  background: #050510;
   border: 2px solid #fff;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
-@media (max-width:700px){
-  .title{
-    font-size: 27px;
-  }
-  .description{
-    font-size: 14px;
 
+@media (max-width: 992px) {
+  .container {
+    gap: var(--spacing-xl);
   }
-  .container{
+}
+
+@media (max-width: 768px) {
+  .teaserSection {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .container {
     flex-direction: column;
-    flex-wrap: wrap;
+    text-align: center;
   }
-  .comparison{
-    width: 250px;
-    height: 250px;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .description {
+    max-width: 100%;
+  }
+
+  .comparison {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .comparison {
+    max-width: 280px;
+  }
+
+  .sliderCircle {
+    width: 30px;
+    height: 30px;
   }
 }
